@@ -3,7 +3,6 @@ import requests
 from lxml import etree
 
 def getEvents(url):
-    print("\nsomeone used the bot\n")
     r = requests.get(url)
     parser = etree.XMLParser(recover=True)
     rss_tree = etree.fromstring(r.content, parser)
@@ -25,3 +24,8 @@ def getEvents(url):
 
 def getCategories():
     return "/free_concerts /free_fitness"
+
+def getSearch(message):
+    search_term = message[8:len(message)]
+    url = 'https://www.uitinvlaanderen.be/agenda/search/rss?search=' + search_term + '&facet%5Bdatetype%5D%5B0%5D=today&facet%5Bcategory_flandersregion_id%5D%5B0%5D=reg.16'
+    return getEvents(url)
